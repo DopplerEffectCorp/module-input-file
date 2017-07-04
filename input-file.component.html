@@ -1,1 +1,1 @@
-<label>FILE<span>{{ fileName  || 'Nom du fichier'}}</span><input type="file" (change)="inputValueChanged($event)" accept="{{ accept }}"/></label>
+<div class="file-upload"><label [class.invalid]="isRequired" [class.valid]="!isRequired"><img src="./assets/img/icon-plus.png"/><span>{{ fileName  || 'Nom du fichier'}}</span><input type="file" (change)="inputValueChanged($event)" accept="{{ accept }}"/></label></div>
