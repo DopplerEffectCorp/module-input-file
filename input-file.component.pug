@@ -1,0 +1,3 @@
+label FILE
+  span {{ fileName  || 'Nom du fichier'}}
+  input(type='file', (change)="inputValueChanged($event)", accept="{{ accept }}")
