@@ -1,9 +1,10 @@
 import {
-    Component,
-    forwardRef,
-    Input,
-    OnChanges,
-    SimpleChanges,
+  Component,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import {
     ControlValueAccessor,
@@ -30,7 +31,7 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
         },
     ],
 })
-export class InputFileComponent implements ControlValueAccessor, OnChanges {
+export class InputFileComponent implements ControlValueAccessor, OnChanges, OnInit {
     @Input() accept;
     @Input() isRequired;
     fileName = null;
@@ -38,6 +39,10 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges {
     private validateFn = null;
     private propagateChange = (_: any) => {
     };
+
+    ngOnInit(){
+      this.validateFn = createFileRequiredValidator(this.isRequired || false)
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.isRequired) {
