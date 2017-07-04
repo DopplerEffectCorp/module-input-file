@@ -1,0 +1,22 @@
+{
+  "name": "input-file",
+  "version": "0.0.0",
+  "description": "Doppler Effect file input",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DopplerEffectCorp/module-input-file.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DopplerEffectCorp/module-input-file/issues"
+  },
+  "homepage": "https://github.com/DopplerEffectCorp/module-input-file#readme",
+  "dependencies": {
+    "@angular/common": "^4.2.2",
+    "@angular/compiler": "^4.2.2",
+    "@angular/core": "^4.2.2",
+    "rxjs": "^5.4.0",
+    "zone.js": "^0.8.12"
+  }
+}
