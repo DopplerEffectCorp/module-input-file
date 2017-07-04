@@ -2,11 +2,16 @@ import {
     Component,
     forwardRef,
     Input,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core';
 import {
     ControlValueAccessor,
+    FormControl,
+    NG_VALIDATORS,
     NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import {createFileRequiredValidator} from './validateFileRequired.validator';
 
 @Component({
     selector: 'input-file',
@@ -18,17 +23,32 @@ import {
             useExisting: forwardRef(() => InputFileComponent),
             multi: true,
         },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => InputFileComponent),
+            multi: true,
+        },
     ],
 })
-export class InputFileComponent implements ControlValueAccessor {
+export class InputFileComponent implements ControlValueAccessor, OnChanges {
     @Input() accept;
+    @Input() isRequired;
+    fileName = null;
     private _file = null;
-    private fileName = null;
+    private validateFn = null;
     private propagateChange = (_: any) => {
     };
-    private propagateTouched = (_: any) => {
-    };
 
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.isRequired) {
+            this.validateFn = createFileRequiredValidator(this.isRequired);
+            this.propagateChange(this._file);
+        }
+    }
+
+    validate(c: FormControl) {
+        return this.validateFn(c);
+    }
 
     inputValueChanged(event) {
         const eventObj: MSInputMethodContext = event as MSInputMethodContext;
@@ -36,11 +56,9 @@ export class InputFileComponent implements ControlValueAccessor {
         const files: FileList = target.files;
         console.log(event);
         if (files && files[0]) {
-            console.log('Got files', files[0])
             this._file = files[0];
             this.fileName = this._file.name;
         } else {
-            console.log('Doesnt Got files')
             this._file = null;
             this.fileName = 'Aucun fichier choisi';
         }
@@ -65,6 +83,5 @@ export class InputFileComponent implements ControlValueAccessor {
     }
 
     registerOnTouched() {
-        // this.propagateTouched = fn;
     }
 }
