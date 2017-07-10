@@ -45,7 +45,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.isRequired) {
+        if (changes['isRequired']) {
             this.validateFn = createFileRequiredValidator(this.isRequired);
             this.propagateChange(this._file);
         }
@@ -65,7 +65,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
             this.fileName = this._file.name;
         } else {
             this._file = null;
-            this.fileName = 'Aucun fichier choisi';
+            this.fileName = null;
         }
         this.propagateChange(this._file);
     }
@@ -76,13 +76,13 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
 
     set file(val) {
         this._file = val;
-        this.fileName = this._file.name ? this._file.name : 'Aucun fichier choisi';
+        this.fileName = this._file ? this._file.name : null;
         this.propagateChange(this._file);
     }
 
     writeValue(value: any) {
         this._file = value;
-        this.fileName = this._file.name ? this._file.name : 'Aucun fichier choisi';
+        this.fileName = this._file ? this._file.name : null;
         this.propagateChange(this._file);
     }
 
