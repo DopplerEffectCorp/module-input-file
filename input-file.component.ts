@@ -1,10 +1,10 @@
 import {
-  Component,
-  forwardRef,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
+    Component,
+    forwardRef,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
 } from '@angular/core';
 import {
     ControlValueAccessor,
@@ -40,8 +40,8 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     private propagateChange = (_: any) => {
     };
 
-    ngOnInit(){
-      this.validateFn = createFileRequiredValidator(this.isRequired || false)
+    ngOnInit() {
+        this.validateFn = createFileRequiredValidator(this.isRequired || false);
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -76,6 +76,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
 
     set file(val) {
         this._file = val;
+        this.fileName = this._file.name ? this._file.name : 'Aucun fichier choisi';
         this.propagateChange(this._file);
     }
 
