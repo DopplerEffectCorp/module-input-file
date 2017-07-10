@@ -83,6 +83,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     writeValue(value: any) {
         this._file = value;
         this.fileName = this._file.name ? this._file.name : 'Aucun fichier choisi';
+        this.propagateChange(this._file);
     }
 
     registerOnChange(fn) {
