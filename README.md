@@ -15,9 +15,9 @@
 `input-file([(ngModel)]="fileVariable", name='name', #name="ngModel", [isRequired]="true")`
 
 ## Extendable
-`@Component({
-    selector: ‘input-file-user’,
-    templateUrl: ‘./form.user.input.html’,
+```@Component({
+    selector: 'input-file-user',
+    templateUrl: './form.user.input.html',
     styleUrls: [‘./form.user.input.file.scss’],
     providers: [
         {
@@ -35,4 +35,4 @@
 
 export class FormUserInputFileComponent extends InputFileComponent {
 
-}`
+}```
