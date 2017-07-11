@@ -1,5 +1,5 @@
 div.file-upload
-  label([class.invalid]="isRequired && !fileName", [class.valid]="fileName")
+  label
     img(src="./assets/img/icon-plus.png")
     span {{ fileName  || 'Aucun fichier choisi'}}
     input(type='file', (change)="inputValueChanged($event)", accept="{{ accept }}")

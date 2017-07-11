@@ -1,3 +1,19 @@
+input-file {
+  &.ng-valid {
+    label {
+      border-left: 5px solid #42A948;
+    }
+  }
+  &.ng-invalid {
+    label {
+      border-left: 5px solid #f1404b;
+      span {
+        color: #f1404b;
+      }
+    }
+  }
+
+}
 
 .file-upload {
   [type='file'] {
@@ -11,15 +27,6 @@
     margin-top: 10px;
     border: 1px solid #cacaca;
     background-color: white;
-    &.invalid {
-      border-left: 5px solid #f1404b;
-      span {
-        color: #f1404b;
-      }
-    }
-    &.valid {
-      border-left: 5px solid #42A948;
-    }
   }
 
   img {
