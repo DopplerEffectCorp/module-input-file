@@ -5,6 +5,7 @@ import {
     OnChanges,
     OnInit,
     SimpleChanges,
+    ViewEncapsulation,
 } from '@angular/core';
 import {
     ControlValueAccessor,
@@ -18,6 +19,7 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
     selector: 'input-file',
     templateUrl: './input-file.component.html',
     styleUrls: ['./input-file.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
