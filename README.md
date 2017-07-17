@@ -1,5 +1,5 @@
 # InputFile Module
-TEST
+
 ## Available attributes
 
 `[accept]="file_extension,audio/*,video/*,image/*,media_type" => like real accept attribute`
