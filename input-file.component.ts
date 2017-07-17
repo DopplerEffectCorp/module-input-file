@@ -1,9 +1,11 @@
 import {
     Component,
+    EventEmitter,
     forwardRef,
     Input,
     OnChanges,
     OnInit,
+    Output,
     SimpleChanges,
     ViewEncapsulation,
 } from '@angular/core';
@@ -36,7 +38,9 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
 export class InputFileComponent implements ControlValueAccessor, OnChanges, OnInit {
     @Input() accept;
     @Input() isRequired;
+    @Output('change') change: EventEmitter<any> = new EventEmitter();
     fileName = null;
+    picture;
     protected _file = null;
     protected validateFn = null;
     protected propagateChange = (_: any) => {
@@ -65,10 +69,17 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
         if (files && files[0]) {
             this._file = files[0];
             this.fileName = this._file.name;
+            const reader = new FileReader();
+            reader.onload = (nevent: any) => {
+                this.picture = nevent.target.result;
+                this.change.emit(this.picture);
+            };
+            reader.readAsDataURL(event.target.files[0]);
         } else {
             this._file = null;
             this.fileName = null;
         }
+
         this.propagateChange(this._file);
     }
 
