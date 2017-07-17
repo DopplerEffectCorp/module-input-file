@@ -35,9 +35,9 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     @Input() accept;
     @Input() isRequired;
     fileName = null;
-    private _file = null;
-    private validateFn = null;
-    private propagateChange = (_: any) => {
+    protected _file = null;
+    protected validateFn = null;
+    protected propagateChange = (_: any) => {
     };
 
     ngOnInit() {
