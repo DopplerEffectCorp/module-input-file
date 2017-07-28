@@ -2,4 +2,4 @@ div.file-upload
   label
     img(src="./assets/img/icon-plus.png")
     span {{ fileName  || 'Aucun fichier choisi'}}
-    input(type='file', (change)="inputValueChanged($event)", accept="{{ accept }}")
+    input(type='file', (change)="inputValueChanged($event)", accept="{{ accept }}", [multiple]="multiple")

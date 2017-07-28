@@ -6,9 +6,11 @@
 
 `[isRequired]="true" => can put a variable to have dynamic requirement`
 
+`[multiple]="true" => select multiple files
+
 ## Reactive Forms
 
-`input-file(formControlName="file", [accept]="'.zip'", [isRequired]="true")`
+`input-file(formControlName="file", [accept]="'.zip'", [isRequired]="true", [multiple]="true")`
 
 ## NgModel Forms
 
