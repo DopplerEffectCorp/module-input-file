@@ -38,8 +38,8 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
 export class InputFileComponent implements ControlValueAccessor, OnChanges, OnInit {
     @Input() accept;
     @Input() isRequired;
+    @Input() fileName = null;
     @Output('change') change: EventEmitter<any> = new EventEmitter();
-    fileName = null;
     picture;
     protected _file = null;
     protected validateFn = null;
