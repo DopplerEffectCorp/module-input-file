@@ -38,8 +38,8 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
 export class InputFileComponent implements ControlValueAccessor, OnChanges, OnInit {
     @Input() accept;
     @Input() isRequired;
-    @Input() fileName = null;
     @Output('change') change: EventEmitter<any> = new EventEmitter();
+    fileName = null;
     picture;
     protected _file = null;
     protected validateFn = null;
@@ -96,6 +96,10 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     writeValue(value: any) {
         this._file = value;
         this.fileName = this._file ? this._file.name : null;
+        if (this._file.ref) {
+            const ref = this._file.ref.split('/');
+            this.fileName = ref[ref.length - 1];
+        }
         this.propagateChange(this._file);
     }
 
