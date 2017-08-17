@@ -38,15 +38,17 @@ import {createFileRequiredValidator} from './validateFileRequired.validator';
 export class InputFileComponent implements ControlValueAccessor, OnChanges, OnInit {
     @Input() accept;
     @Input() isRequired;
+    @Input() multiple;
     @Output('change') change: EventEmitter<any> = new EventEmitter();
     fileName = null;
     picture;
-    protected _file = null;
+    protected _file: FileList;
     protected validateFn = null;
     protected propagateChange = (_: any) => {
     };
 
     ngOnInit() {
+        this.multiple = this.multiple || false;
         this.validateFn = createFileRequiredValidator(this.isRequired || false);
     }
 
@@ -65,16 +67,17 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
         const eventObj: MSInputMethodContext = event as MSInputMethodContext;
         const target: HTMLInputElement = eventObj.target as HTMLInputElement;
         const files: FileList = target.files;
-        console.log(event);
-        if (files && files[0]) {
-            this._file = files[0];
-            this.fileName = this._file.name;
-            const reader = new FileReader();
-            reader.onload = (nevent: any) => {
-                this.picture = nevent.target.result;
-                this.change.emit(this.picture);
-            };
-            reader.readAsDataURL(event.target.files[0]);
+        if (files) {
+            this._file = files;
+            this.fileName = this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name;
+            if (this._file.length < 2) {
+                const reader = new FileReader();
+                reader.onload = (nevent: any) => {
+                    this.picture = nevent.target.result;
+                    this.change.emit(this.picture);
+                };
+                reader.readAsDataURL(this._file[0]);
+            }
         } else {
             this._file = null;
             this.fileName = null;
@@ -89,17 +92,13 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
 
     set file(val) {
         this._file = val;
-        this.fileName = this._file ? this._file.name : null;
+        this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
         this.propagateChange(this._file);
     }
 
     writeValue(value: any) {
         this._file = value;
-        this.fileName = this._file ? this._file.name : null;
-        if (this._file.ref) {
-            const ref = this._file.ref.split('/');
-            this.fileName = ref[ref.length - 1];
-        }
+        this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
         this.propagateChange(this._file);
     }
 

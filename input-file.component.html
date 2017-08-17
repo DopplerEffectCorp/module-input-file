@@ -1,1 +1,1 @@
-<div class="file-upload"><label><img src="./assets/img/icon-plus.png"/><span>{{ fileName  || 'Aucun fichier choisi'}}</span><input type="file" (change)="inputValueChanged($event)" accept="{{ accept }}"/></label></div>
+<div class="file-upload"><label><img src="./assets/img/icon-plus.png"/><span>{{ fileName  || 'Aucun fichier choisi'}}</span><input type="file" (change)="inputValueChanged($event)" accept="{{ accept }}" [multiple]="multiple"/></label></div>
