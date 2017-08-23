@@ -16,6 +16,7 @@ import {
     NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {createFileRequiredValidator} from './validateFileRequired.validator';
+import {FirebaseFile} from '../../app/interfaces/firebase-file';
 
 @Component({
     selector: 'input-file',
@@ -42,7 +43,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     @Output('change') change: EventEmitter<any> = new EventEmitter();
     fileName = null;
     picture;
-    protected _file: FileList;
+    protected _file: any;
     protected validateFn = null;
     protected propagateChange = (_: any) => {
     };
@@ -55,7 +56,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     ngOnChanges(changes: SimpleChanges) {
         if (changes['isRequired']) {
             this.validateFn = createFileRequiredValidator(this.isRequired);
-            this.propagateChange(this._file);
+            this.propagateChange(this.constructFileArray());
         }
     }
 
@@ -83,23 +84,37 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
             this.fileName = null;
         }
 
-        this.propagateChange(this._file);
+        this.propagateChange(this.constructFileArray());
     }
 
-    get file() {
+    get _file() {
         return this._file;
     }
 
-    set file(val) {
+    set _file(val) {
         this._file = val;
         this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
         this.propagateChange(this._file);
     }
 
+    constructFileArray() {
+        if (this._file) {
+            return  Object.keys(this._file).map((key) => {
+                return this._file[key];
+            });
+        } else {
+            return null;
+        }
+    }
+
     writeValue(value: any) {
         this._file = value;
-        this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
-        this.propagateChange(this._file);
+        if (this._file && this._file[0]) {
+            this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
+        } else {
+            this.fileName = this._file ?  this._file.name : null;
+        }
+        this.propagateChange(this.constructFileArray());
     }
 
     registerOnChange(fn) {
