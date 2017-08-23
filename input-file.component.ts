@@ -87,16 +87,6 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
         this.propagateChange(this.constructFileArray());
     }
 
-    get _file() {
-        return this._file;
-    }
-
-    set _file(val) {
-        this._file = val;
-        this.fileName = this._file ? (this._file.length > 1 ? 'Plusieurs fichier sélectionnés' : this._file[0].name) : null;
-        this.propagateChange(this._file);
-    }
-
     constructFileArray() {
         if (this._file) {
             return  Object.keys(this._file).map((key) => {
