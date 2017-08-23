@@ -43,6 +43,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     @Output('change') change: EventEmitter<any> = new EventEmitter();
     fileName = null;
     picture;
+    control: FormControl;
     protected _file: any;
     protected validateFn = null;
     protected propagateChange = (_: any) => {
@@ -61,6 +62,7 @@ export class InputFileComponent implements ControlValueAccessor, OnChanges, OnIn
     }
 
     validate(c: FormControl) {
+        this.control = c;
         return this.validateFn(c);
     }
 
