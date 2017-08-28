@@ -16,7 +16,6 @@ import {
     NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {createFileRequiredValidator} from './validateFileRequired.validator';
-import {FirebaseFile} from '../../app/interfaces/firebase-file';
 
 @Component({
     selector: 'input-file',
